@@ -1,0 +1,15 @@
+SHOW DATABASES;
+DROP DATABASE selmollaassign2db;
+CREATE DATABASE selmollaassign2db;
+USE DATABASE selmollaassign2db;
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON selmollaassign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+SHOW TABLES;
+CREATE TABLE Agent (AgentID VARCHAR(2) NOT NULL, FirstName VARCHAR(30), LastName VARCHAR(30), City VARCHAR(20), Commission FLOAT, PRIMARY KEY (AgentID));
+CREATE TABLE Customer (CustomerID VARCHAR(2) NOT NULL, FirstName VARCHAR(30), LastName VARCHAR(30), City VARCHAR(20), PhoneNumber VARCHAR(20), AgentID VARCHAR(2), PRIMARY KEY (CustomerID), FOREIGN KEY (AgentID) REFERENCES Agent(AgentID));
+CREATE TABLE Product (ProductID VARCHAR(2) NOT NULL, Description VARCHAR(20), Quantity INT, Cost FLOAT, PRIMARY KEY (ProductID));
+CREATE TABLE purchasedBy (ProductID VARCHAR(2) NOT NULL, CustomerID VARCHAR(2) NOT NULL, Quantity INT NOT NULL, PRIMARY KEY (ProductID, CustomerID, Quantity), FOREIGN KEY (ProductID) REFERENCES Product(ProductID), FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID));
+SHOW TABLES;

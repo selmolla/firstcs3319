@@ -1,0 +1,15 @@
+USE selmollaassign2db;;
+SELECT * FROM Product;
+SELECT * FROM purchasedBy;
+SELECT * FROM Customer;
+SELECT * FROM Agent;
+DROP VIEW IF EXISTS theView;
+CREATE VIEW theView AS SELECT FirstName, LastName, Description, pb.Quantity, Cost, pb.Quantity * Cost AS 'Total Cost' FROM Customer AS c INNER JOIN purchasedBy AS pb ON c.CustomerID = pb.CustomerID INNER JOIN Product AS p ON pb.ProductID = p.ProductID;
+SELECT * FROM theView;
+SELECT * FROM theView WHERE Quantity * Cost > 100;
+-- This delete worked because there were not any other data entries that used its productID
+DELETE FROM Product WHERE Description = 'Long John Johnson';
+SELECT * FROM Product;
+-- This delete did not work because there were other data entries that referenced an Agent who lived in Springfield
+DELETE FROM Agent WHERE City = 'Springfield';
+
